@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Aura</title>
+    <link rel="icon" href="feketelogo_feherpolora.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://www.paypal.com/sdk/js?client-id=AfTumM16DMZZBnZQWU0zc5ODV92HAKLF1V_2TuofG_ncNZo-8LweuInzJNa3_ORWYpKs_7FLAXAKNezI"></script>
+    <style>
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .cart-item-image img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            margin-right: 15px;
+            width: 100px;
+            height: auto;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+
+        .checkout-form {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout-form h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .checkout-form input,
+        .checkout-form select {
+            margin-bottom: 15px;
+            padding: 12px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .checkout-form button {
+            padding: 12px;
+            background-color: #404040;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .checkout-form button:hover {
+            background-color: #696969;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+
+        .checkout-form hr {
+            margin: 20px 0;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: calc(50% - 20px);
+        }
+
+        @media (max-width: 768px) {
+            .form-row .form-group {
+                min-width: 100%;
+            }
+        }
+        @media (max-width: 768px) {
+            .form-group {
+                width: 130%;
+                margin-left: -38px;
+            }
+        }
+        @media (max-width: 768px) {
+            select {
+                margin-left: 25px;
+                text-align: center;
+            }
+        }
+        @media (max-width: 768px) {
+            .form-labels {
+                margin-left: 25px;
+            }
+        }
+        .order-summary{
+            display:none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <img src="https://cdn.icon-icons.com/icons2/2582/PNG/512/menu_icon_153999.png" alt="Menu">
+        </div>
+        <ul class="nav-links">
+            <li><a href="Women.html" onclick="loadContent('Women.html')"><h1>Women's</h1></a></li>
+            <li><a href="Man.html" onclick="loadContent('Man.html')"><h1>Men's</h1></a></li>
+            <li class="icon"><a href="index.html"><i class="fa fa-home" style="font-size: 26px;"></i></a></li>
+            <li class="icon"><a href="#"><i class="fa fa-user" style="font-size: 26px;"></i></a></li>
+            <li class="icon"><a href="cart.html"><i class="fa fa-shopping-cart" style="font-size: 26px;"></i><span id="cart-count">0</span></a></li>
+        </ul>
+        <div class="logo">
+            <a href="#"><img src="betufeketelogo_feherruhara.png"></a>
+        </div>
+    </nav>
+
+    <div class="cart-container">
+        <h2>Checkout</h2>
+        <ul id="cart-items"></ul>
+        <div class="cart-summary">
+            <div class="cart-totals">
+                <p>Subtotal: $<span id="cart-subtotal">0</span></p>
+                <p>Shipping: $<span id="cart-shipping">5.00</span></p>
+                <hr>
+                <p class="total"><strong>Total: $<span id="cart-total">0</span></strong></p>
+            </div>
+        </div>
+        
+        <div class="checkout-form">
+            <h3>Shipping & Payment Information</h3>
+
+            <div class="container register">
+                <div class="row">
+                    <div class="col-md-12">
+                            <div class="tab-pane fade show active text-align form-new" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading"></h3>
+                                <div class="row register-form">
+                                    <div class="col-md-12">
+                                        <form method="post" autocomplete="off" name="google-sheet">
+                                            <input type="hidden" id="cart-data" name="cart-data">
+                                            <div class="form-group">
+                                                <input type="text" name="Name" class="form-control" placeholder="Your Name *" value="" required=""/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="Email" class="form-control" placeholder="Your Email *" value="" required=""/>
+                                            </div>
+                                            <div class="form-group">
+                                              <input type="text" name="Address" class="form-control" placeholder="Shipping Address*" value="" required=""/>
+                                          </div>
+                                          <div class="form-group">
+                                            <input type="text" name="City" class="form-control" placeholder="City*" value="" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                          <input type="number" name="Postal Code" class="form-control" placeholder="Postal Code*" value="" required=""/>
+                                      </div>
+                                        <div class="form-group">
+                                            <input type="number" name="Phone" class="form-control" placeholder="Your Contact Number *" value="" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-labels" name="Payment" for="payment-method" placeholder="payment-method*" required="">Payment Method</label>
+                                            <select id="payment-method" name="Payment Method" required>
+                                                <option value="PayPal">PayPal</option>
+                                                <option value="Credit Card">Credit Card</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <button id="continue-btn" type="submit" name="submit" class="btnSubmit btn-block" value="Continue">Continue</button>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </a>
+        </div>
+    </div>
+</form>
+<script>
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzegScM42z1bBY4UEP8NdqRA1Zn2nynQ0xsaQPaPcXsE7ORF0uzOKXDiyaL-Rn1yVO9EA/exec';
+const form = document.forms['google-sheet'];
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            if (response.ok) {
+                
+                window.location.href = 'Payment.html';
+            } else {
+                alert('There was an issue with your submission. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an issue with your submission. Please try again.');
+        });
+});
+</script>
+
+        </div>
+    </div>
+    
+    <div class="order-summary">
+        <h3>Order Summary</h3>
+        <table id="order-summary-table" class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="order-summary-body">
+                
+            </tbody>
+        </table>
+    </div>
+    <br><br><br><br><br><br><br><br>
+    <section class="footer">
+      <div class="footer-row">
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul class="links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Compressions</a></li>
+            <li><a href="#">Customers</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Collection</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="links">
+            <li><a href="#">Free Designs</a></li>
+            <li><a href="#">Latest Designs</a></li>
+            <li><a href="#">Themes</a></li>
+            <li><a href="#">Popular Designs</a></li>
+            <li><a href="#">Art Skills</a></li>
+            <li><a href="#">New Uploads</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="links">
+            <li><a href="#">Customer Agreement</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">GDPR</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Media Kit</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p>
+            Subscribe to our newsletter for a weekly dose
+            of news, updates, helpful tips, and
+            exclusive offers.
+          </p>
+          <h3>By: Papp Bulcsú</h3>
+        </div>
+      </div>
+    </section>
+
+    <script>
+
+
+function updateCartPage() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartSubtotalContainer = document.getElementById('cart-subtotal');
+    const cartTotalContainer = document.getElementById('cart-total');
+    const orderSummaryBody = document.getElementById('order-summary-body');
+    const cartDataInput = document.getElementById('cart-data'); 
+
+    let subtotal = 0;
+    let shipping = 5.00; 
+    cartItemsContainer.innerHTML = '';
+    orderSummaryBody.innerHTML = '';
+
+    let cartData = []; 
+
+    cart.forEach((product, index) => {
+        subtotal += product.price * product.quantity;
+
+        const li = document.createElement('li');
+        li.classList.add('cart-item');
+        li.innerHTML = `
+            <div class="cart-item-image">
+                <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="cart-item-details">
+                <span>${product.name} (${product.pattern}, Size: ${product.size})</span>
+                <span>$${product.price} x ${product.quantity}</span>
+            </div>
+        `;
+        cartItemsContainer.appendChild(li);
+
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${product.name} (${product.pattern}, Size: ${product.size})</td>
+            <td>$${product.price.toFixed(2)}</td>
+            <td>${product.quantity}</td>
+            <td>$${(product.price * product.quantity).toFixed(2)}</td>
+        `;
+        orderSummaryBody.appendChild(row);
+
+        cartData.push(product);
+    });
+
+    const total = subtotal + shipping;
+
+    cartSubtotalContainer.innerText = subtotal.toFixed(2);
+    cartTotalContainer.innerText = total.toFixed(2);
+
+
+    cartDataInput.value = JSON.stringify(cartData);
+}
+
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    updateCartPage();
+});
+
+</script>
+<script src="java.js"></script>
+</body>
+
+</html>

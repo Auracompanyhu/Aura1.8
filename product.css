@@ -1,0 +1,239 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+
+
+.shoe-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.shoe-images {
+    flex: 1;
+    text-align: center;
+}
+
+#main-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.thumbnail-images {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.thumbnail-images img {
+    width: 80px;
+    margin: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.thumbnail-images img:hover {
+    transform: scale(1.1);
+}
+
+.shoe-details {
+    flex: 1;
+    padding: 20px;
+}
+
+.shoe-details h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.shoe-details .price {
+    font-size: 28px;
+    color: #e63946;
+    margin-bottom: 20px;
+}
+
+.shoe-details .description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.size-selector {
+    margin-bottom: 20px;
+}
+
+.size-selector label {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.size-selector select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.add-to-cart {
+    background-color: #e63946;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background-color: #d62828;
+}
+
+/* Reviews Section */
+.reviews {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.reviews h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.review {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.review h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.review p {
+    margin: 5px 0;
+}
+
+.review p:last-child {
+    font-size: 16px;
+}
+
+/* Related Products Section */
+.related-products {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.related-products h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.related-item {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    margin: 0 1.5%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.related-item img {
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.related-item p {
+    margin: 5px 0;
+}
+
+.related-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 992px) {
+    .shoe-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .thumbnail-images {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .shoe-container {
+        padding: 10px;
+    }
+
+    .shoe-images img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .shoe-details {
+        text-align: center;
+    }
+
+    .thumbnail-images img {
+        max-width: 70px;
+    }
+
+    .container .col-sm {
+        flex-basis: 100%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .kep img{
+        width: 400px;
+    }
+  }
+  @media only screen and (max-width: 450px) {
+    .kep img{
+        width: 300px;
+    }
+  }
